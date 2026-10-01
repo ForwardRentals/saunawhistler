@@ -14,15 +14,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
-      GH_TOKEN: ${{ github.token }}
+      # Changing Pages settings needs a token with Administration + Pages write;
+      # the default GITHUB_TOKEN gets HTTP 403.
+      GH_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN }}
       REPO: ${{ github.repository }}
       CNAME: www.saunawhistler.com
     steps:
+      - name: Check token
+        run: test -n "$GH_TOKEN" || { echo 'Add a PAGES_ADMIN_TOKEN repo secret first'; exit 1; }
       - name: Re-add custom domain to trigger certificate
         run: |
           gh api -X PUT repos/$REPO/pages --input - <<< '{"cname":null}'
           sleep 10
-          gh api -X PUT repos/$REPO/pages -f cname="$CNAME"
+          for i in 1 2 3 4 5; do
+            gh api -X PUT repos/$REPO/pages -f cname="$CNAME" && exit 0
+            sleep 10
+          done
+          exit 1
       - name: Wait for certificate, then enforce HTTPS
         run: |
           for i in $(seq 1 55); do
