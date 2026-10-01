@@ -1,0 +1,20 @@
+name: Pages HTTPS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ccr-37201228-4vnmiv]
+
+permissions:
+  pages: write
+  contents: read
+
+jobs:
+  https:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Current Pages state
+        run: gh api repos/$REPO/pages
