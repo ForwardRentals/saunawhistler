@@ -219,7 +219,22 @@ img.rounded { aspect-ratio: 4 / 3; object-fit: cover; }
 .photo-strip figure { margin: 0; }
 .photo-strip img { width: 100%; height: 360px; object-fit: cover; border-radius: 4px; display: block; }
 .photo-strip figcaption { color: var(--text-dim); font-size: 0.85rem; margin-top: 8px; }
+.photo-strip.three { grid-template-columns: 1.2fr 1fr 1fr; }
+.photo-strip.three img { height: 320px; }
 @media (max-width: 860px) {
-  .photo-strip { grid-template-columns: 1fr; }
-  .photo-strip img { height: 240px; }
+  .photo-strip, .photo-strip.three { grid-template-columns: 1fr; }
+  .photo-strip img, .photo-strip.three img { height: 240px; }
+}
+
+/* Hero text sits left; photo subject shows on the right */
+.hero .wrap { width: 100%; }
+.hero .wrap > * { max-width: 620px; }
+.hero .wrap > h1 { max-width: 900px; }
+.hero::before {
+  background:
+    linear-gradient(90deg, rgba(12,20,9,0.85) 0%, rgba(12,20,9,0.55) 45%, rgba(12,20,9,0.1) 100%),
+    linear-gradient(180deg, rgba(12,20,9,0) 60%, rgba(12,20,9,0.95) 100%);
+}
+@media (max-width: 860px) {
+  .hero::before { background: linear-gradient(180deg, rgba(12,20,9,0.45) 0%, rgba(12,20,9,0.7) 50%, rgba(12,20,9,0.96) 100%); }
 }
