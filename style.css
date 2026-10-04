@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  --bg: #0d1610;
-  --bg-alt: #12201a;
-  --panel: #16241c;
-  --gold: #cfa14e;
-  --gold-bright: #e3bc70;
-  --text: #f2ede3;
-  --text-dim: #b9c2ba;
-  --border: rgba(207, 161, 78, 0.25);
+  --bg: #0c1409;
+  --bg-alt: #111d0e;
+  --panel: #15230f;
+  --gold: #c8a050;
+  --gold-bright: #e0b860;
+  --text: #f0ebe1;
+  --text-dim: #c8c0b0;
+  --border: rgba(200, 160, 80, 0.22);
 }
 
 * { box-sizing: border-box; }
@@ -193,4 +193,33 @@ footer.site {
   .footer-grid { grid-template-columns: 1fr; }
   nav.main { display: none; }
   .hamburger { display: block; }
+  header.site .bar { flex-wrap: wrap; gap: 12px; padding: 14px 20px; }
+  header.site .bar > .btn { padding: 10px 16px; font-size: 0.75rem; margin-left: auto; }
+  header.site.menu-open nav.main {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+    order: 10; width: 100%; padding: 8px 0 12px; border-top: 1px solid var(--border);
+  }
+  header.site.menu-open nav.main a { padding: 12px 0; font-size: 0.95rem; width: 100%; }
+  .hero { min-height: 72vh; }
+  .hero h1 { font-size: 2.1rem; line-height: 1.15; }
+  section { padding: 64px 0; }
+  .callout { padding: 32px 22px; }
+}
+
+/* Refresh: real photos, tighter hero, photo strip */
+.hero { background-position: center 60%; min-height: min(78vh, 780px); }
+.hero::before { background: linear-gradient(180deg, rgba(12,20,9,0.35) 0%, rgba(12,20,9,0.6) 50%, rgba(12,20,9,0.96) 100%); }
+.hero .lead { color: #e6dfd2; }
+.hero .facts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 0 0 28px; padding: 0; list-style: none; color: var(--gold-bright); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+.hero .facts li::before { content: '\2022'; margin-right: 8px; color: var(--gold); }
+.hero .facts li:first-child::before { content: none; margin: 0; }
+.hamburger { width: 44px; height: 44px; line-height: 1; }
+img.rounded { aspect-ratio: 4 / 3; object-fit: cover; }
+.photo-strip { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
+.photo-strip figure { margin: 0; }
+.photo-strip img { width: 100%; height: 360px; object-fit: cover; border-radius: 4px; display: block; }
+.photo-strip figcaption { color: var(--text-dim); font-size: 0.85rem; margin-top: 8px; }
+@media (max-width: 860px) {
+  .photo-strip { grid-template-columns: 1fr; }
+  .photo-strip img { height: 240px; }
 }
